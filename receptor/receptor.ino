@@ -5,7 +5,6 @@
 
 int valor_recebido_RF;
 char recebido_RF_char[40];
-
 int newmessage;
 
 void EEPROMWriteLong(int address, long value);
@@ -27,14 +26,10 @@ void setup()   {
  
 void loop(){
   
-  
   uint8_t message[VW_MAX_MESSAGE_LEN];    
   uint8_t msgLength = VW_MAX_MESSAGE_LEN;
-
-  
   
   if (vw_get_message(message, &msgLength)) {
-
       Serial.print(message[0]);
       Serial.print(",");
       Serial.print(message[2]);
@@ -43,35 +38,10 @@ void loop(){
       
       newmessage = atol(recebido_RF_char);
       EEPROMWriteInt(1, newmessage);
-      
-      enviarValor(true, newmessage);
   }
 }
 
-
-//FUNCTIONS
-void enviarValor(bool comando, int message) {
-  if(comando == true) {
-    //int umidade = message / 1000;
-    //delay(1000);
-    //int ph = (message - (umidade * 1000)) / 100;
-    //delay(1000);
-    //int luminosidade = (message - ((umidade * 1000) + (ph * 100))) * 10;
-
-    /*
-    delay(1000);
-    Serial.print(umidade);
-    Serial.print(",");
-    Serial.print(ph);
-    Serial.print(",");
-    Serial.println(luminosidade);
-    */
-    //Serial.println(message);
-    
-  }
-  delay(1000);
-}
-
+//Funções
 void EEPROMWriteInt(int address, int value) {
    byte hiByte = highByte(value);
    byte loByte = lowByte(value);
